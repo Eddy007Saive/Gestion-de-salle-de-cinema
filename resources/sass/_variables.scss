@@ -1,0 +1,18 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-RLigth: 'RLigth', sans-serif;
+$font-family-harry:"harry";
+$font-family-RRegular:"RRegular";
+$color-base:rgba(255, 187, 0, 0.911);
+
+
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+
+h1,h2,h3{
+    font-family: $font-RLigth;
+    font-size: $font-size-base;
+}

@@ -1,0 +1,45 @@
+.affiche {
+    width: 100%;
+    .desc {
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        visibility: hidden;
+        transition: all 1s;
+
+    }
+
+    .card{
+        height: 300px;
+        width: 300px;
+        margin: 10px;
+        transition: all 0.3s ease-in-out;
+        &:hover{
+            animation: fadeIn 1s;
+            cursor: pointer;
+            .desc {
+                visibility: visible;
+            }
+
+        }
+    }
+}
+
+.movieOfweek{
+    h3{
+        font-size: 19px;
+        font-family: "RExtraB";
+    }
+   p{
+    font-family: $font-RLigth;
+   }
+   .heure{
+    display: flex;
+    column-gap: 50px;
+   }
+   .nav-link{
+    color: $color-base;
+    font-size: 30px;
+    font-family: $font-family-harry;
+   }
+}
