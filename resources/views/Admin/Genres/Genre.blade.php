@@ -13,21 +13,25 @@
 
                 <th>Selected</th>
                 <th>Genre</th>
-                <th>Film</th>
+                <th>Action</th>
 
             </thead>
             <tbody>
                 @foreach ( $genres as $genre )
-                      <tr>
-                      <td>
-                            <form action="" class="d-flex justify-content-center w-100  h-100 ">
-                                <input type="checkbox" name="id" id="" class="form-check">
-                            </form>
-                        </td>
+                <tr>
+                    <td>
+                        <form action="" class="d-flex justify-content-center w-100  h-100 ">
+                            <input type="checkbox" name="id" id="" class="form-check">
+                        </form>
+                    </td>
 
-                        <td>{{ $genre["genre"] }}</td>
-                        <td>{{ $genre["movie_id"] }}</td>
-                      </tr>
+                    <td>{{ $genre["genre"] }}</td>
+
+                    <td>
+                        <a href="{{route('Genre.modify',['id'=>$genre['id']] )}}" class="btn btn-warning">Views</a>
+                        <a href="{{route('Genre.modify',['id'=>$genre['id']] )}}" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
 
@@ -35,6 +39,7 @@
 
 
     </div>
+    {{ $genres->links() }}
 </div>
-{{ $genres->links() }}
+
 @endsection

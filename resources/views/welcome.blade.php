@@ -64,7 +64,7 @@
     <h1>Nouveautés</h1>
     <hr>
     @foreach ($movies as $movie )
-    <div data-wow-duration="1s"class="  wow bounceInUp animate__animated  animate__flipInY card col-3 position-relative  d-flex justify-content-center shadow-lg rounded-4 overflow-hidden">
+    <div data-wow-duration="1s" class="  wow bounceInUp animate__animated  animate__flipInY card col-3 position-relative  d-flex justify-content-center shadow-lg rounded-4 overflow-hidden">
         <div class="card-img  overflow-hidden h-100 w-100">
             <img src="{{Storage::url('images/'.$movie->image)}}" class="img-fluid w-100 h-100" alt="">
         </div>
@@ -82,53 +82,29 @@
 </section>
 
 <section class=" w-100 movieOfweek mt-3  ">
-<hr>
-<div class="row w-100 a ">
-<h2 class="col-3 animate__animated  animate__fadeInUp  wow " data-wow-duration="2s">MoviesOfWeek</h2>
-<nav class="navbar-nav w-100 col-6 animate__animated  animate__fadeInUp  wow" data-wow-duration="2s">
-        <ul class="d-flex nav w-100 justify-content-center">
+    <hr>
+    <div class="row w-100 a ">
+        <h2 class="col-3 animate__animated  animate__fadeInUp  wow " data-wow-duration="2s">MoviesOfWeek</h2>
+        <nav class="navbar-nav w-100 col-6 animate__animated  animate__fadeInUp  wow" data-wow-duration="2s">
+            <ul class="d-flex nav w-100 justify-content-center">
 
-            <li class="nav-item"><a href="" class="nav-link">Lundi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Mardi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Mercredi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Jeudi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Vendredi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Samedi</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Dimanche</a></li>
-        </ul>
-    </nav>
-</div>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'lundi']) }}" id="jour" class="nav-link jour">Lundi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'mardi']) }}"   id="jour" class="nav-link jour">Mardi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'mercredi']) }}"id="jour"  class="nav-link jour">Mercredi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'jeudi']) }}" id="jour"  class="nav-link jour">Jeudi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'vendredi']) }}" id="jour"  class="nav-link jour">Vendredi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'samedi']) }}" id="jour"  class="nav-link jour">Samedi</a></li>
+                <li class="nav-item"><a href="{{route('film.by.day',['jour'=>'dimanche']) }}" id="jour"  class="nav-link jour">Dimanche</a></li>
+
+            </ul>
+        </nav>
+    </div>
 
 
 
     <hr>
-    <article class="row  w-100 p-4 ">
-        @foreach ($projections as $projection )
-
-
-        <div class="col-3 animate__animated animate__fadeInLeft wow " data-wow-duration="2s">
-            <img src="{{Storage::url('images/'.$projection->image)}}" class="img-fluid  w-100" alt="">
-        </div>
-        <div class="col-9 animate__animated  animate__fadeInRight wow" data-wow-duration="3s">
-            <h3> {{ $projection->titre}}</h3>
-            <p>
-                {{ substr($projection->descri,100)}}
-            </p>
-            <div class="heure  w-100">
-                <ul>
-                    <li>Auteur: <span> {{ $projection->Auteur}}</span></li>
-                    <li>Genre: <span>Horreur</span></li>
-                    <li>Date de Sortie : <span> {{ $projection->DateS}}</span></li>
-                </ul>
-                <div class="d-flex column-gap-4 w-100">
-                    <p>Durée: <span class="btn btn-warning"> {{ $projection->duree}}</span></p>
-                    <a class="btn btn-primary h-50" href=""> <i class="fa-regular fa-eye"></i>Voir plus </a>
-                </div>
-
-            </div>
-        </div>
-        @endforeach
-    </article>
+    @yield('movie')
 </section>
+
 
 @endsection

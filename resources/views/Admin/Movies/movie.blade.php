@@ -28,11 +28,6 @@
                         <td>{{ $movie["Auteur"] }}</td>
                         <td>{{ $movie["DateS"] }}</td>
                         <td>{{ $movie["duree"] }}</td>
-                        <td>
-                            @foreach ( as )
-
-                        @endforeach
-                        </td>
                         <td class="d-flex column-gap-3 justify-content-center">
                             <a href="{{route('film.view',['id'=>$movie['id']] )}}" class="btn btn-warning">Views</a>
                             <a href="{{route('film.modify',['id'=>$movie['id']] )}}" class="btn btn-primary">Modifier</a>
@@ -43,4 +38,5 @@
         </table>
     </div>
 </div>
+
 @endsection

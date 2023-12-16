@@ -12,7 +12,7 @@ class GenreController extends Controller
     "Romance","Documentaire","Aventure","Fantaisie","Thriller","Mystére","Crime","Guerre","Historique"];
 
     public function index() {
-        $genres=genre::paginate(2);
+        $genres=genre::paginate(6);
         return view("Admin.Genres.Genre",compact("genres"));
 
     }
@@ -27,20 +27,18 @@ class GenreController extends Controller
 
     public function store(Request $req) {
         $req->validate([
-            'genre'=>['required'],
-            'movie'=>['required']
+            'genre'=>['required','unique:genres,genre','min:4'],
         ]);
 
 
         try {
-            foreach ($req["genre"] as  $value) {
+
                 genre::create(
                     [
-                    'genre'=> $value,
-                    'movie_id'=>$req["movie"],
+                    'genre'=> $req['genre'],
                     ]
                 );
-            }
+
 
 
             return redirect()->route('Genre');

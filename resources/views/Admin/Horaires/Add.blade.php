@@ -47,7 +47,7 @@
 
 
             <label for="place" class="form-label ">Place disponible:</label>
-            <input type="text" readonly name="place" id="" class="form-control place" value="{{$movie['duree'] ?? ''}}">
+            <input type="text" readonly name="place" id="" class="form-control place" >
 
             @error('place')
             <p class="text-danger text-center">{{$message }}</p>

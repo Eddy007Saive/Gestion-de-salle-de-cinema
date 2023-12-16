@@ -22,7 +22,13 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('ind
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('/')->group(function () {
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/film/{jour}', [App\Http\Controllers\HomeController::class, 'getFilmByDay'])->name('film.by.day');
+});
+
+
 // Routes admin
 Route::prefix('home')->group(function () {
     Route::prefix('film')->group(function () {
@@ -52,7 +58,7 @@ Route::prefix('home')->group(function () {
         Route::delete('delete/{id}', [HoraireController::class, 'delete'])->name('Horaire.delete');
         Route::get('update/{id}', [HoraireController::class, 'modify'])->name('Horaire.modify');
         Route::post('/update', [HoraireController::class, 'update'])->name('Horaire.update');
-        Route::get("/voir/{id}");
+        Route::get("/voir/{id}",[HoraireController::class, 'view'])->name('Horaire.view');
     });
 
 
@@ -64,4 +70,5 @@ Route::prefix('home')->group(function () {
         Route::get('update/{id}', [GenreController::class, 'modify'])->name('Genre.modify');
         Route::post('/update', [GenreController::class, 'update'])->name('Genre.update');
     });
+
 });

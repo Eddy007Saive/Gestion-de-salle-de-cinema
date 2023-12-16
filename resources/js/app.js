@@ -1,11 +1,12 @@
 import './bootstrap';
 import "../css/app.css"
 import '../sass/app.scss'
-import $ from 'jquery';
+import $, { type } from 'jquery';
 import axios from 'axios';
 import "@fortawesome/fontawesome-free/css/all.css"
 import "animate.css"
 import WOW from "wow.js"
+import { lowerCase } from 'lodash';
 
 const wows =new WOW();
 wows.init()
@@ -34,5 +35,3 @@ selectPlace.on("change", () => {
         console.log(err);
     });
 })
-
-

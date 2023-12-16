@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Horaire;
+use App\Models\movie;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -15,7 +16,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -32,9 +32,37 @@ class HomeController extends Controller
         //Recuperer la semaine
         $weekAgo=Carbon::now()->subWeek();
         // Selectionner toutes les films qui sont sortie il y a une semaine
-        $movies= DB::table('movies')->where("DateS",">", $weekAgo)->get();;
+        $movies= movie::where("DateS",">", $weekAgo)->get();
         // Selectionnez les film en projection de la semaine
-        $projections=DB::table("horaires","h")->join("movies","h.movie_id","=","movies.id")->get();
-        return view("welcome",compact("movies","projections"));
+        $horaires= Horaire::All();
+
+        $horaires->map(function ($horaire)  {
+            $date=Carbon::parse($horaire->DateD)->locale('fr_FR');
+            $horaire->DateD= $date->isoFormat("LL");
+        });
+        return view("welcome",compact("movies","horaires"));
     }
+
+    public function getFilmByDay($film){
+        $weekAgo=Carbon::now()->subWeek();
+        $movies= movie::where("DateS",">", $weekAgo)->get();
+
+        $h=$this->getFilm($film);
+        return view('MovieByDay',compact("h","movies"));
+
+    }
+
+    public function getFilm($film){
+        $horaires= Horaire::All();
+        $horaires->map(function ($horaire)  {
+            $date=Carbon::parse($horaire->DateD)->locale('fr_FR');
+            $horaire->DateD= $date->dayName;
+        });
+
+        $h=$horaires->filter(function ($horaire) use ($film) {
+            return $horaire->DateD === $film;
+        });
+        return $h;
+    }
+
 }

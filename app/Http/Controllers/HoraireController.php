@@ -6,6 +6,7 @@ use App\Models\movie;
 use App\Models\Salle;
 use App\Models\Horaire;
 use App\Rules\unique_hours_for_date;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HoraireController extends Controller
@@ -18,6 +19,7 @@ class HoraireController extends Controller
     public function index()
     {
             $horaires=Horaire::All();
+           
             return view('Admin.Horaires.Horaire',compact('horaires'));
     }
 
@@ -34,7 +36,7 @@ class HoraireController extends Controller
     }
 
     public function getFilm($jours) {
-        
+
     }
     /**
      * Enregistrer un salle
@@ -131,5 +133,16 @@ class HoraireController extends Controller
             echo $th->getMessage();
         }
 
+    }
+
+    public function view($id) {
+        $horaire=Horaire::find($id);
+        $movie=$horaire->movie;
+        // $date= Carbon::now()->locale("fr");
+        // $dateD=$date->format("l j F Y");
+        $date = Carbon::parse($horaire->DateD);
+
+        $dateD=$date->dayName;
+        return view("Admin.Horaires.Details",compact("horaire","movie","dateD"));
     }
 }

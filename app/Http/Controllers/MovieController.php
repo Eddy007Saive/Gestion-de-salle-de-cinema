@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\genre;
 use App\Models\movie;
-use App\Models\Salle;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -33,9 +33,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = movie::with("genres")->get();
-        dd($movies);
 
+        $movies = movie::with("genres")->get();
         return view('Admin.Movies.movie', ['movies' => $movies]);
     }
 
@@ -46,7 +45,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('Admin.Movies.add');
+        $genres=genre::All();
+        return view('Admin.Movies.add',compact("genres"));
     }
 
     /**
@@ -57,6 +57,7 @@ class MovieController extends Controller
      */
     public function store(Request $req)
     {
+
         $req->validate([
             'titre' => ['required', 'min:3', 'max:100', 'unique:movies,titre'],
             'real' => ['required', 'min:3', 'max:100'],
@@ -69,7 +70,7 @@ class MovieController extends Controller
             $file = $req->file('image');
             $image = $file->getClientOriginalName();
             $req->file('image')->storeAs('images', $image, 'public');
-            movie::create([
+            $movie=movie::create([
                 'titre' => $req['titre'],
                 'Auteur' => $req['real'],
                 'DateS' => $req['DateSortie'],
@@ -78,10 +79,15 @@ class MovieController extends Controller
                 'image' => $image,
             ]);
 
+            foreach ($req["genre"] as $value) {
+
+             $movie->genres()->attach($value);
+            }
             return redirect()->route('film.create');
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
+
     }
 
     /**

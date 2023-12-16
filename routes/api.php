@@ -24,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("/findImage/{id}",[MovieController::class,"getImage"]);
 Route::get("/findPlace/{id}",[SalleController::class,"getPlace"]);
 Route::get('/film',[SalleController::class,"getPlace"]);
+Route::get('/film/{jour}', [App\Http\Controllers\HomeController::class, 'getFilmByDay'])->name('film.by.day');
+
+
